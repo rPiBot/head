@@ -185,12 +185,10 @@ class XboxController(threading.Thread):
 
     @property
     def RTRIGGER(self):
-        ss.set_servo(1, 0)
         return self.controlValues[self.XboxControls.RTRIGGER]
 
     @property
     def LTRIGGER(self):
-        ss.set_servo(1, 180)
         return self.controlValues[self.XboxControls.LTRIGGER]
 
     @property
@@ -354,6 +352,7 @@ if __name__ == '__main__':
 
     #generic call back
     def controlCallBack(xboxControlId, value):
+        ss.set_servo(1, 0)
         print "Control Id = {}, Value = {}".format(xboxControlId, value)
 
     #specific callbacks for the left thumb (X & Y)
