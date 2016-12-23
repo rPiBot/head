@@ -359,13 +359,13 @@ if __name__ == '__main__':
 
     # Look left/right
     def rightThumbX(xValue):
-        converted_value = 90 + (xValue / 100 * 90)
+        converted_value = 90 + xValue
         ss.set_servo(1, converted_value)
         print "RX {}".format(xValue)
 
     # Look up/down
     def rightThumbY(yValue):
-        converted_value = 90 + (-yValue / 100 * 90)
+        converted_value = 90 - yValue
 
         # Set range limits to not trap the cable
         if (converted_value < 30):
@@ -382,7 +382,7 @@ if __name__ == '__main__':
         ss.set_servo(2, 90)
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
-    xboxCont = XboxController(controlCallBack, deadzone = 30, scale = 100, invertYAxis = True)
+    xboxCont = XboxController(controlCallBack, deadzone = 20, scale = 90, invertYAxis = True)
 
     #setup the left thumb (X & Y) callbacks
     xboxCont.setupControlCallback(xboxCont.XboxControls.RTHUMBX, rightThumbX)
