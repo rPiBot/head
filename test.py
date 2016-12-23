@@ -246,7 +246,7 @@ class XboxController(threading.Thread):
         # init pygame
         pygame.init()
         # create a 1x1 pixel screen, its not used so it doesnt matter
-        screen = pygame.display.set_mode((1, 1))
+        screen = pygame.display.set_mode((480, 320))
         # init the joystick control
         pygame.joystick.init()
         # how many joysticks are there
