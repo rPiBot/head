@@ -359,10 +359,8 @@ if __name__ == '__main__':
 
     #specific callbacks for the left thumb (X & Y)
     def rightThumbX(xValue):
-        if (xValue < 0):
-          converted_value = 90 - (xValue / 100 * 90)
-        else:
-          converted_value = 90 + (xValue / 100 * 90)
+
+        converted_value = 90 + (xValue / 100 * 90)
 
         ss.set_servo(1, converted_value)
         print "RX {}".format(xValue)
