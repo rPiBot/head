@@ -242,11 +242,11 @@ class XboxController(threading.Thread):
     #setup pygame
     def _setupPygame(self, joystickNo):
         # set SDL to use the dummy NULL video driver, so it doesn't need a windowing system.
-        os.environ["SDL_VIDEODRIVER"] = "dummy"
+        #os.environ["SDL_VIDEODRIVER"] = "dummy"
         # init pygame
         pygame.init()
         # create a 1x1 pixel screen, its not used so it doesnt matter
-        screen = pygame.display.set_mode((1, 1))
+        #screen = pygame.display.set_mode((1, 1))
         # init the joystick control
         pygame.joystick.init()
         # how many joysticks are there
@@ -361,6 +361,10 @@ if __name__ == '__main__':
     def rightThumbX(xValue):
         converted_value = 90 + xValue
         ss.set_servo(1, converted_value)
+
+        direction = "left" if xValue >= 0 else "right"
+        os.system("echo '{} {}' > /dev/tty1".format(direction, xValue))
+
         print "RX {}".format(xValue)
 
     # Look up/down
@@ -373,13 +377,24 @@ if __name__ == '__main__':
         if (converted_value > 170):
             converted_value = 170
 
+        direction = "up" if yValue >= 0 else "down"
+        os.system("echo '{} {}' > /dev/tty1".format(direction, yValue))
+
         ss.set_servo(2, converted_value)
+
         print "RY {}".format(yValue)
 
     # Reset camera
     def X(state):
         ss.set_servo(1, 90)
         ss.set_servo(2, 90)
+        os.system("echo 'Resetting'")
+
+    # Quit
+    def BACK(state):
+        xboxCont.stop()
+
+
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
     xboxCont = XboxController(controlCallBack, deadzone = 20, scale = 90, invertYAxis = True)
@@ -388,13 +403,16 @@ if __name__ == '__main__':
     xboxCont.setupControlCallback(xboxCont.XboxControls.RTHUMBX, rightThumbX)
     xboxCont.setupControlCallback(xboxCont.XboxControls.RTHUMBY, rightThumbY)
     xboxCont.setupControlCallback(xboxCont.XboxControls.X, X)
+    xboxCont.setupControlCallback(xboxCont.XboxControls.BACK, BACK)
+
 
 
 
     try:
         #start the controller
         xboxCont.start()
-        print "xbox controller running"
+        os.system("echo 'Controller running'")
+
         while True:
             time.sleep(1)
 
