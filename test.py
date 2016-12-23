@@ -380,7 +380,7 @@ if __name__ == '__main__':
     def X(state):
         ss.set_servo(1, 90)
         ss.set_servo(2, 90)
-                os.system("echo 'Resetting' > /dev/tty1")
+        os.system("echo 'Resetting' > /dev/tty1")
 
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
