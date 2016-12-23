@@ -361,7 +361,7 @@ if __name__ == '__main__':
     def rightThumbX(xValue):
         converted_value = 90 + (xValue / 100 * 90)
         ss.set_servo(1, converted_value)
-        print "RX {}".format(xValue)
+        os.system("echo 'Looking left/right: {}' > /dev/tty1".format(xValue))
 
     # Look up/down
     def rightThumbY(yValue):
@@ -372,14 +372,16 @@ if __name__ == '__main__':
             converted_value = 30
         if (converted_value > 170):
             converted_value = 170
-            
+
         ss.set_servo(2, converted_value)
-        print "RY {}".format(yValue)
+        os.system("echo 'Looking left/right: {}' > /dev/tty1".format(yValue))
 
     # Reset camera
     def X(state):
         ss.set_servo(1, 90)
         ss.set_servo(2, 90)
+                os.system("echo 'Resetting' > /dev/tty1")
+
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
     xboxCont = XboxController(controlCallBack, deadzone = 30, scale = 100, invertYAxis = True)
