@@ -246,7 +246,7 @@ class XboxController(threading.Thread):
         # init pygame
         pygame.init()
         # create a 1x1 pixel screen, its not used so it doesnt matter
-        screen = pygame.display.set_mode((480, 320))
+        screen = pygame.display.set_mode((1, 1))
         # init the joystick control
         pygame.joystick.init()
         # how many joysticks are there
@@ -361,7 +361,7 @@ if __name__ == '__main__':
     def rightThumbX(xValue):
         converted_value = 90 + (xValue / 100 * 90)
         ss.set_servo(1, converted_value)
-        #os.system("echo 'Looking left/right: {}' > /dev/tty1".format(xValue))
+        print "RX {}".format(xValue)
 
     # Look up/down
     def rightThumbY(yValue):
@@ -374,14 +374,12 @@ if __name__ == '__main__':
             converted_value = 170
 
         ss.set_servo(2, converted_value)
-        #os.system("echo 'Looking left/right: {}' > /dev/tty1".format(yValue))
+        print "RY {}".format(yValue)
 
     # Reset camera
     def X(state):
         ss.set_servo(1, 90)
         ss.set_servo(2, 90)
-        #os.system("echo 'Resetting' > /dev/tty1")
-
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
     xboxCont = XboxController(controlCallBack, deadzone = 30, scale = 100, invertYAxis = True)
