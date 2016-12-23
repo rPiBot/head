@@ -366,11 +366,18 @@ if __name__ == '__main__':
     # Look up/down
     def rightThumbY(yValue):
         converted_value = 90 + (-yValue / 100 * 90)
+
+        # Set range limits to not trap the cable
+        if (converted_value < 30):
+            converted_value = 30
+        if (converted_value > 170):
+            converted_value = 170
+            
         ss.set_servo(2, converted_value)
         print "RY {}".format(yValue)
 
     # Reset camera
-    def X():
+    def X(state):
         ss.set_servo(1, 90)
         ss.set_servo(2, 90)
 
