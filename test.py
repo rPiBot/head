@@ -13,48 +13,29 @@ from servosix import ServoSix
 
 ss = ServoSix()
 
+OUTPUT_X = ''
+OUTPUT_Y = ''
 
-"""
-NOTES - pygame events and values
+# Screen outputs
+class Screen:
+  def output_message(self, message):
+    if message != "":
+      os.system("echo '{}' > /dev/tty1".format(message))
 
-JOYAXISMOTION
-event.axis              event.value
-0 - x axis left thumb   (+1 is right, -1 is left)
-1 - y axis left thumb   (+1 is down, -1 is up)
-2 - x axis right thumb  (+1 is right, -1 is left)
-3 - y axis right thumb  (+1 is down, -1 is up)
-4 - right trigger
-5 - left trigger
+  def output_x(self, message):
+    global OUTPUT_X
+    if (OUTPUT_X != message):
+        Screen.output_message(self, message)
+        OUTPUT_X = message
 
-JOYBUTTONDOWN | JOYBUTTONUP
-event.button
-A = 0
-B = 1
-X = 2
-Y = 3
-LB = 4
-RB = 5
-BACK = 6
-START = 7
-XBOX = 8
-LEFTTHUMB = 9
-RIGHTTHUMB = 10
+  def output_y(self, message):
+    global OUTPUT_Y
+    if (OUTPUT_Y != message):
+      Screen.output_message(self, message)
+      OUTPUT_Y = message
 
-JOYHATMOTION
-event.value
-[0] - horizontal
-[1] - vertival
-[0].0 - middle
-[0].-1 - left
-[0].+1 - right
-[1].0 - middle
-[1].-1 - bottom
-[1].+1 - top
-
-"""
 #Main class for reading the xbox controller values
 class XboxController(threading.Thread):
-
     #internal ids for the xbox controls
     class XboxControls():
         LTHUMBX = 0
@@ -352,37 +333,42 @@ if __name__ == '__main__':
 
     #generic call back
     def controlCallBack(xboxControlId, value):
-        output = "Control Id = {}, Value = {}".format(xboxControlId, value)
-        #echo output > /dev/tty1
-        print output
-
+        print "Control Id = {}, Value = {}".format(xboxControlId, value)
 
     # Look left/right
     def rightThumbX(xValue):
-        converted_value = 90 + xValue
-        ss.set_servo(1, converted_value)
+      converted_value = 90 + (-xValue)
 
-        direction = "left" if xValue >= 0 else "right"
-        os.system("echo '{} {}' > /dev/tty1".format(direction, xValue))
+      # Set range limits to not trap the cable
+      if (converted_value > 180):
+        converted_value = 180
+      if (converted_value < 0):
+        converted_value = 0
 
-        print "RX {}".format(xValue)
+      ss.set_servo(1, converted_value)
+
+      direction = "LEFT" if xValue <= 0 else "RIGHT"
+      if xValue == 0:
+        direction = ""
+      Screen.output_x(screen, direction)
 
     # Look up/down
     def rightThumbY(yValue):
-        converted_value = 90 - yValue
+      converted_value = 90 - yValue
 
-        # Set range limits to not trap the cable
-        if (converted_value < 30):
-            converted_value = 30
-        if (converted_value > 170):
-            converted_value = 170
+      # Set range limits to not trap the cable
+      if (converted_value < 30):
+        converted_value = 30
+      if (converted_value > 170):
+        converted_value = 170
 
-        direction = "up" if yValue >= 0 else "down"
-        os.system("echo '{} {}' > /dev/tty1".format(direction, yValue))
+      ss.set_servo(2, converted_value)
 
-        ss.set_servo(2, converted_value)
 
-        print "RY {}".format(yValue)
+      direction = "UP" if yValue >= 0 else "DOWN"
+      if yValue == 0:
+        direction = ""
+      Screen.output_y(screen, direction)
 
     # Reset camera
     def X(state):
@@ -390,23 +376,16 @@ if __name__ == '__main__':
         ss.set_servo(2, 90)
         os.system("echo 'Resetting'")
 
-    # Quit
-    def BACK(state):
-        xboxCont.stop()
-
-
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
     xboxCont = XboxController(controlCallBack, deadzone = 20, scale = 90, invertYAxis = True)
+
+    screen = Screen()
 
     #setup the left thumb (X & Y) callbacks
     xboxCont.setupControlCallback(xboxCont.XboxControls.RTHUMBX, rightThumbX)
     xboxCont.setupControlCallback(xboxCont.XboxControls.RTHUMBY, rightThumbY)
     xboxCont.setupControlCallback(xboxCont.XboxControls.X, X)
-    xboxCont.setupControlCallback(xboxCont.XboxControls.BACK, BACK)
-
-
-
 
     try:
         #start the controller
