@@ -357,15 +357,22 @@ if __name__ == '__main__':
         print output
 
 
-    #specific callbacks for the left thumb (X & Y)
+    # Look left/right
     def rightThumbX(xValue):
         converted_value = 90 + (xValue / 100 * 90)
         ss.set_servo(1, converted_value)
         print "RX {}".format(xValue)
+
+    # Look up/down
     def rightThumbY(yValue):
-        converted_value = 90 + (yValue / 100 * 90)
+        converted_value = 90 + (-yValue / 100 * 90)
         ss.set_servo(2, converted_value)
         print "RY {}".format(yValue)
+
+    # Reset camera
+    def X():
+        ss.set_servo(1, 90)
+        ss.set_servo(2, 90)
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
     xboxCont = XboxController(controlCallBack, deadzone = 30, scale = 100, invertYAxis = True)
@@ -373,6 +380,9 @@ if __name__ == '__main__':
     #setup the left thumb (X & Y) callbacks
     xboxCont.setupControlCallback(xboxCont.XboxControls.RTHUMBX, rightThumbX)
     xboxCont.setupControlCallback(xboxCont.XboxControls.RTHUMBY, rightThumbY)
+    xboxCont.setupControlCallback(xboxCont.XboxControls.X, X)
+
+
 
     try:
         #start the controller
