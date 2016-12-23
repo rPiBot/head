@@ -353,7 +353,7 @@ if __name__ == '__main__':
     #generic call back
     def controlCallBack(xboxControlId, value):
         output = "Control Id = {}, Value = {}".format(xboxControlId, value)
-        echo output > /dev/tty1
+        print output > /dev/tty1
         print output
 
 
