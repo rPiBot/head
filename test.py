@@ -359,12 +359,12 @@ if __name__ == '__main__':
 
     #specific callbacks for the left thumb (X & Y)
     def rightThumbX(xValue):
-
         converted_value = 90 + (xValue / 100 * 90)
-
         ss.set_servo(1, converted_value)
         print "RX {}".format(xValue)
     def rightThumbY(yValue):
+        converted_value = 90 + (yValue / 100 * 90)
+        ss.set_servo(2, converted_value)
         print "RY {}".format(yValue)
 
     #setup xbox controller, set out the deadzone and scale, also invert the Y Axis (for some reason in Pygame negative is up - wierd!
