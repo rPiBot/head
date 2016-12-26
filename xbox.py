@@ -16,6 +16,9 @@ ss = ServoSix()
 OUTPUT_X = ''
 OUTPUT_Y = ''
 
+x_value = 90
+y_value = 90
+
 # Screen outputs
 class Screen:
   def output_message(self, message):
@@ -335,6 +338,13 @@ if __name__ == '__main__':
     def controlCallBack(xboxControlId, value):
         print "Control Id = {}, Value = {}".format(xboxControlId, value)
 
+    def pan(converted_value):
+      global x_value
+      for x in range(x_value, converted_value):
+          x_value = x
+          ss.set_servo(1, converted_value)
+          time.sleep(0.05)
+
     # Look left/right
     def rightThumbX(xValue):
       converted_value = 90 + (-xValue)
@@ -345,9 +355,10 @@ if __name__ == '__main__':
       if (converted_value < 0):
         converted_value = 0
 
-      ss.set_servo(1, converted_value)
-
       direction = "LEFT" if xValue <= 0 else "RIGHT"
+
+      pan(converted_value)
+
       if xValue == 0:
         direction = ""
       Screen.output_x(screen, direction)
