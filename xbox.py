@@ -217,6 +217,7 @@ class XboxController(threading.Thread):
     def RIGHTTHUMB(self):
         return self.controlValues[self.XboxControls.RIGHTTHUMB]
 
+
     @property
     def DPAD(self):
         return self.controlValues[self.XboxControls.DPAD]
