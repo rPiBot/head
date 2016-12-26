@@ -13,6 +13,7 @@ from servosix import ServoSix
 
 ss = ServoSix()
 
+
 OUTPUT_X = ''
 OUTPUT_Y = ''
 
