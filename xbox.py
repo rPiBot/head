@@ -12,8 +12,6 @@ import time
 from servosix import ServoSix
 
 ss = ServoSix()
-speed = 0.015
-stop_moving = False
 
 OUTPUT_X = ''
 OUTPUT_Y = ''
@@ -338,46 +336,21 @@ if __name__ == '__main__':
         print "Control Id = {}, Value = {}".format(xboxControlId, value)
 
     # Look left/right
-#    def rightThumbX(xValue):
-#      converted_value = 90 + #(-xValue)
-#
-#      # Set range limits to not trap the cable
-#      if (converted_value > 180):
-#        converted_value = 180
-#      if (converted_value < 0):
-#        converted_value = 0
-#
-#      ss.set_servo(1, converted_value)
-#
-#      direction = "LEFT" if xValue <= 0 else "RIGHT"
-#      if xValue == 0:
-#        direction = ""
-#      Screen.output_x(screen, direction)
-
-    def pan_left(xValue):
-        for x in range(0, 180):
-            if stop_moving:
-                stop_moving = False
-                break
-            ss.set_servo(1, x)
-            time.sleep(speed)
-
-    def pan_right(xValue):
-        for x in range(0, 180):
-            if stop_moving:
-                stop_moving = False
-                break
-            ss.set_servo(1, (180-x))
-            time.sleep(speed)
-
     def rightThumbX(xValue):
-      stop_moving = True
-      if xValue > 0:
-          stop_moving = False
-          move_left(xValue)
-      else:
-          stop_moving = False
-          pan_right(xValue)
+      converted_value = 90 + (-xValue)
+
+      # Set range limits to not trap the cable
+      if (converted_value > 180):
+        converted_value = 180
+      if (converted_value < 0):
+        converted_value = 0
+
+      ss.set_servo(1, converted_value)
+
+      direction = "LEFT" if xValue <= 0 else "RIGHT"
+      if xValue == 0:
+        direction = ""
+      Screen.output_x(screen, direction)
 
     # Look up/down
     def rightThumbY(yValue):

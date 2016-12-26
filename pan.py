@@ -3,15 +3,10 @@ import time
 
 ss = ServoSix()
 
-speed = 0.015
+smoothness = 0.05
 
-stop_moving = False
-
-for x in range(0, 180):
-    if stop_moving:
-        stop_moving = False
-        break
-    ss.set_servo(1, x)
-    time.sleep(speed)
+for x in range(0, 90):
+  ss.set_servo(1, x)
+  time.sleep(smoothness*10)
 
 ss.cleanup()
