@@ -1,4 +1,4 @@
-import pygame, os, sys, thread, time
+import pygame, os, sys, threading, time
 from pygame.locals import *
 from servosix import ServoSix
 
