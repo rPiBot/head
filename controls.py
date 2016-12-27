@@ -1,9 +1,9 @@
 import pygame, os, sys, thread, time
 from pygame.locals import *
-#from servosix import ServoSix
+from servosix import ServoSix
 
 pygame.init()
-#ss = ServoSix()
+ss = ServoSix()
 
 screen = pygame.display.set_mode((1, 1)) #TODO Required?
 
