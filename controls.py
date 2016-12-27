@@ -28,7 +28,9 @@ def pan_tilt(type, direction):
 
         print type, direction, cam[type]
         servo = 1 if type == 'x' else 2
-        ss.set_servo(servo, cam[type])
+#        ss.set_servo(servo, cam[type])
+        percent = (cam[type] / 180) * 100
+        os.system("echo {}={}% > /dev/servoblaster".format(servo, percent))
         time.sleep(steps['delay'])
 
 def stop(type):
