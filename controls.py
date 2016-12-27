@@ -1,9 +1,9 @@
 import pygame, os, sys, thread, time
 from pygame.locals import *
-from servosix import ServoSix
+#from servosix import ServoSix
 
 pygame.init()
-ss = ServoSix()
+#ss = ServoSix()
 
 screen = pygame.display.set_mode((1, 1)) #TODO Required?
 
@@ -26,15 +26,15 @@ def pan_tilt(type, direction):
         else:
             cam[type] = cam[type] - steps['size']
 
-        print type, direction, cam[type]
+    #    print type, direction, cam[type]
         servo = 1 if type == 'x' else 2
-        ss.set_servo(servo, cam[type])
+    #    ss.set_servo(servo, cam[type])
         time.sleep(steps['delay'])
 
 def stop(type):
     global allow
     allow[type] = False
-    print type, 'released'
+#    print type, 'released'
 
 while True:
     for event in pygame.event.get():
