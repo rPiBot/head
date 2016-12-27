@@ -28,7 +28,7 @@ def pan_tilt(type, direction):
 
     #    print type, direction, cam[type]
         servo = 1 if type == 'x' else 2
-    #    ss.set_servo(servo, cam[type])
+        ss.set_servo(servo, cam[type])
         time.sleep(steps['delay'])
 
 def stop(type):
