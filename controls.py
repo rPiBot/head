@@ -7,7 +7,7 @@ ss = ServoSix()
 
 screen = pygame.display.set_mode((1, 1)) #TODO Required?
 
-steps = { 'size': 10, 'delay': 0.1, 'range_min': 20, 'range_max': 160 }
+steps = { 'size': 10, 'delay': 0.01, 'range_min': 20, 'range_max': 160 }
 cam = {'x': 90, 'y': 90}
 allow = { 'x': True, 'y': True }
 
