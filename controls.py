@@ -34,7 +34,7 @@ def pan_tilt(type, direction):
 def stop(type):
     global allow
     allow[type] = False
-#    print type, 'released'
+    print type, 'released'
 
 while True:
     for event in pygame.event.get():
@@ -47,17 +47,13 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                print 'left'
                 thread.start_new_thread(pan_tilt, ('x', 'positive',))
             elif event.key == pygame.K_RIGHT:
-                print 'right'
-                #thread.start_new_thread(pan_tilt, ('x', 'negative',))
+                thread.start_new_thread(pan_tilt, ('x', 'negative',))
             elif event.key == pygame.K_UP:
-                print 'up'
-                #thread.start_new_thread(pan_tilt, ('y', 'negative',))
+                thread.start_new_thread(pan_tilt, ('y', 'negative',))
             elif event.key == pygame.K_DOWN:
-                print 'down'
-                #thread.start_new_thread(pan_tilt, ('y', 'positive',))
+                thread.start_new_thread(pan_tilt, ('y', 'positive',))
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
