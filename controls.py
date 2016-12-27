@@ -7,7 +7,7 @@ ss = ServoSix()
 
 screen = pygame.display.set_mode((1, 1)) #TODO Required?
 
-steps = { 'size': 10, 'delay': 0.01, 'range_min': 20, 'range_max': 160 }
+steps = { 'size': 10, 'delay': 0.05, 'range_min': 20, 'range_max': 160 }
 cam = {'x': 90, 'y': 90}
 allow = { 'x': True, 'y': True }
 
@@ -47,13 +47,14 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                thread.start_new_thread(pan_tilt, ('x', 'positive',))
+                print 'left'
+                #thread.start_new_thread(pan_tilt, ('x', 'positive',))
             elif event.key == pygame.K_RIGHT:
-                thread.start_new_thread(pan_tilt, ('x', 'negative',))
+                #thread.start_new_thread(pan_tilt, ('x', 'negative',))
             elif event.key == pygame.K_UP:
-                thread.start_new_thread(pan_tilt, ('y', 'negative',))
+                #thread.start_new_thread(pan_tilt, ('y', 'negative',))
             elif event.key == pygame.K_DOWN:
-                thread.start_new_thread(pan_tilt, ('y', 'positive',))
+                #thread.start_new_thread(pan_tilt, ('y', 'positive',))
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
