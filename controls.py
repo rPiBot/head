@@ -50,10 +50,13 @@ while True:
                 print 'left'
                 #thread.start_new_thread(pan_tilt, ('x', 'positive',))
             elif event.key == pygame.K_RIGHT:
+                print 'right'
                 #thread.start_new_thread(pan_tilt, ('x', 'negative',))
             elif event.key == pygame.K_UP:
+                print 'up'
                 #thread.start_new_thread(pan_tilt, ('y', 'negative',))
             elif event.key == pygame.K_DOWN:
+                print 'down'
                 #thread.start_new_thread(pan_tilt, ('y', 'positive',))
 
         if event.type == pygame.KEYUP:
