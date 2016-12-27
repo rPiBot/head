@@ -1,53 +1,40 @@
-import pygame
+import pygame, os, sys, thread, time
 from pygame.locals import *
-import os, sys
-from threading import Thread
-import time
+from servosix import ServoSix
 
 pygame.init()
+ss = ServoSix()
 
-screen = pygame.display.set_mode((1, 1)) #Required?
+screen = pygame.display.set_mode((1, 1)) #TODO Required?
 
-cam_x = 90
-cam_y = 90
-delay = 0.005
+steps = { 'size': 5, 'delay': 0.05, 'range_min': 20, 'range_max': 160 }
+cam = {'x': 90, 'y': 90}
+allow = { 'x': True, 'y': True }
 
-allow_pan_tilt = True
+def pan_tilt(type, direction):
+    global cam, steps, allow
 
-def pan(direction):
-    global cam_x, delay, allow_pan_tilt
+    allow[type] = True
 
-    print direction, cam_x, allow_pan_tilt
+    while allow[type]:
+        if (cam[type] <= steps['range_min'] and direction == 'negative') or (cam[type] >= steps['range_max'] and direction == 'positive'):
+            print 'Limit reached'
+            break;
 
-    allow_pan_tilt = True
+        if direction == 'positive':
+            cam[type] = cam[type] + steps['size']
+        else:
+            cam[type] = cam[type] - steps['size']
 
-    while allow_pan_tilt:
-        try:
-            if (cam_x <= 0 and direction == 'right') or (cam_x >= 180 and direction == 'left'): #Can't move any further
-                break;
+        print type, direction, cam[type]
+        servo = 1 if type == 'x' else 2
+        ss.set_servo(servo, cam[type])
+        time.sleep(steps['delay'])
 
-            if direction == 'left':
-                cam_x = cam_x + 1
-            else:
-                cam_x = cam_x - 1
-
-            print direction, cam_x, allow_pan_tilt
-            time.sleep(delay)
-
-        except KeyException:
-            break
-
-    print 'Finished moving'
-
-
-def tilt(direction):
-        print direction
-
-def stop():
-    global allow_pan_tilt
-    allow_pan_tilt = False
-    print 's'
-
+def stop(type):
+    global allow
+    allow[type] = False
+    print type, 'released'
 
 while True:
     for event in pygame.event.get():
@@ -59,16 +46,19 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                pan('left')
+                thread.start_new_thread(pan_tilt, ('x', 'positive',))
             elif event.key == pygame.K_RIGHT:
-                pan('right')
+                thread.start_new_thread(pan_tilt, ('x', 'negative',))
             elif event.key == pygame.K_UP:
-                tilt('up')
+                thread.start_new_thread(pan_tilt, ('y', 'negative',))
             elif event.key == pygame.K_DOWN:
-                tilt('down')
+                thread.start_new_thread(pan_tilt, ('y', 'positive',))
 
         if event.type == pygame.KEYUP:
-            stop()
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                stop('x')
+            elif event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                stop('y')
 
 pygame.quit()
 quit()
