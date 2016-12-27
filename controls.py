@@ -34,14 +34,13 @@ def pan_tilt(type, direction):
 def stop(type):
     global allow
     allow[type] = False
-    ss.cleanup()
-
 #    print type, 'released'
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             print "Exiting"
+            ss.cleanup()
             pygame.quit()
             quit()
             break
@@ -61,6 +60,6 @@ while True:
                 stop('x')
             elif event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 stop('y')
-
+ss.cleanup()
 pygame.quit()
 quit()
