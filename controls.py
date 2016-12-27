@@ -26,7 +26,7 @@ def pan_tilt(type, direction):
         else:
             cam[type] = cam[type] - steps['size']
 
-    #    print type, direction, cam[type]
+        print type, direction, cam[type]
         servo = 1 if type == 'x' else 2
         ss.set_servo(servo, cam[type])
         time.sleep(steps['delay'])
@@ -48,7 +48,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 print 'left'
-                #thread.start_new_thread(pan_tilt, ('x', 'positive',))
+                thread.start_new_thread(pan_tilt, ('x', 'positive',))
             elif event.key == pygame.K_RIGHT:
                 print 'right'
                 #thread.start_new_thread(pan_tilt, ('x', 'negative',))
