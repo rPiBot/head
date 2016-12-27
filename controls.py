@@ -34,6 +34,8 @@ def pan_tilt(type, direction):
 def stop(type):
     global allow
     allow[type] = False
+    ss.cleanup()
+
 #    print type, 'released'
 
 while True:
