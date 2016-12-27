@@ -11,6 +11,15 @@ steps = { 'size': 10, 'delay': 0.05, 'range_min': 20, 'range_max': 160 }
 cam = {'x': 90, 'y': 90}
 allow = { 'x': True, 'y': True }
 
+class start_pan_tilt(threading.Thread):
+    def __init__(self, type, direction):
+        threading.Thread.__init__(self)
+        self.type = type
+        self.direction = direction
+    def run(self):
+        pan_tilt(self.type, self.direction)
+
+
 def pan_tilt(type, direction):
     global cam, steps, allow
 
@@ -52,10 +61,11 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 thread.start_new_thread(pan_tilt, ('x', 'positive',))
+                s = start_pan_tilt('x', 'positive')
                 #pan_tilt('x', 'positive')
             elif event.key == pygame.K_RIGHT:
                 thread.start_new_thread(pan_tilt, ('x', 'negative',))
-                #pan_tilt('x', 'negative')
+                s = start_pan_tilt('x', 'negative')
             elif event.key == pygame.K_UP:
                 thread.start_new_thread(pan_tilt, ('y', 'negative',))
             elif event.key == pygame.K_DOWN:
@@ -66,6 +76,8 @@ while True:
                 stop('x')
             elif event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 stop('y')
+        s.start
+
 ss.cleanup()
 pygame.quit()
 quit()
