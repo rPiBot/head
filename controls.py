@@ -13,7 +13,7 @@ cam = {'x': 90, 'y': 90}
 
 reset_camera()
 
-def reset_camera:
+def reset_camera():
     ss.set_servo(1, 90)
     ss.set_servo(2, 90)
 
