@@ -29,16 +29,16 @@ def pan_tilt(type, direction):
 #    while allow[type]:
     if (cam[type] <= steps['range_min'] and direction == 'negative') or (cam[type] >= steps['range_max'] and direction == 'positive'):
         print 'Limit reached'
-        break;
 
-    if direction == 'positive':
-        cam[type] = cam[type] + steps['size']
     else:
-        cam[type] = cam[type] - steps['size']
-        print type, direction, cam[type]
+        if direction == 'positive':
+            cam[type] = cam[type] + steps['size']
+        else:
+            cam[type] = cam[type] - steps['size']
+            print type, direction, cam[type]
 
-    servo = 1 if type == 'x' else 2
-    ss.set_servo(servo, cam[type])
+        servo = 1 if type == 'x' else 2
+        ss.set_servo(servo, cam[type])
 #        percent = (cam[type] / 180) * 100
 #        os.system("echo {}={}% > /dev/servoblaster".format(servo, percent))
 #    time.sleep(steps['delay'])
