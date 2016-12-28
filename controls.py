@@ -11,8 +11,6 @@ ss = ServoSix()
 steps = { 'size': 10, 'range_min': 20, 'range_max': 160 }
 cam = {'x': 90, 'y': 90}
 
-reset_camera()
-
 def reset_camera():
     ss.set_servo(1, 90)
     ss.set_servo(2, 90)
@@ -34,6 +32,8 @@ def pan_tilt(type, direction):
 #        percent = (cam[type] / 180) * 100
 #        os.system("echo {}={}% > /dev/servoblaster".format(servo, percent))
     return True
+
+reset_camera()
 
 while True:
     for event in pygame.event.get():
