@@ -4,7 +4,7 @@ from servosix import ServoSix
 
 pygame.init()
 screen = pygame.display.set_mode((1, 1)) #TODO Required?
-pygame.key.set_repeat(100, 50)
+pygame.key.set_repeat(50, 50)
 
 ss = ServoSix()
 
@@ -55,6 +55,7 @@ while True:
             elif event.key == pygame.K_DOWN:
                 pan_tilt('y', 'positive')
 
+reset_camera()
 ss.cleanup()
 pygame.quit()
 quit()
