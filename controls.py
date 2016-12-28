@@ -28,7 +28,7 @@ def pan_tilt(axis, direction, type):
     global cam, steps
 
     if (cam[axis] <= steps['range_min'] and direction == 'negative') or (cam[axis] >= steps['range_max'] and direction == 'positive'):
-        print 'Limit reached'
+        return False
 
     else:
         if direction == 'positive':
