@@ -1,4 +1,4 @@
-import pygame, os, sys, threading, time
+import pygame, os, sys, time
 from pygame.locals import *
 from servosix import ServoSix
 
@@ -10,6 +10,12 @@ ss = ServoSix()
 
 steps = { 'size': 10, 'range_min': 20, 'range_max': 160 }
 cam = {'x': 90, 'y': 90}
+
+reset_camera()
+
+def reset_camera:
+    ss.set_servo(1, 90)
+    ss.set_servo(2, 90)
 
 def pan_tilt(type, direction):
     global cam, steps
@@ -33,6 +39,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             print "Exiting"
+            reset_camera()
             ss.cleanup()
             pygame.quit()
             quit()
