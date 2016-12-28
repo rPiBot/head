@@ -15,6 +15,12 @@ def reset_camera():
     ss.set_servo(1, 90)
     ss.set_servo(2, 90)
 
+def cleanup():
+    reset_camera()
+    ss.cleanup()
+    pygame.quit()
+    quit()
+
 def pan_tilt(type, direction):
     global cam, steps
 
@@ -39,10 +45,7 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             print "Exiting"
-            reset_camera()
-            ss.cleanup()
-            pygame.quit()
-            quit()
+            cleanup()
             break
 
         if event.type == pygame.KEYDOWN:
@@ -55,7 +58,4 @@ while True:
             elif event.key == pygame.K_DOWN:
                 pan_tilt('y', 'positive')
 
-reset_camera()
-ss.cleanup()
-pygame.quit()
-quit()
+cleanup()
