@@ -6,7 +6,7 @@ pygame.init()
 ss = ServoSix()
 
 screen = pygame.display.set_mode((1, 1)) #TODO Required?
-pygame.key.set_repeat(200, 200)
+pygame.key.set_repeat(100, 100)
 
 
 steps = { 'size': 10, 'delay': 0.05, 'range_min': 20, 'range_max': 160 }
@@ -70,7 +70,7 @@ while True:
                 pan_tilt('x', 'negative')
             elif event.key == pygame.K_UP:
                 #thread.start_new_thread(pan_tilt, ('y', 'negative',))
-                pan_tilt('x', 'negative')
+                pan_tilt('y', 'negative')
             elif event.key == pygame.K_DOWN:
                 #thread.start_new_thread(pan_tilt, ('y', 'positive',))
                 pan_tilt('y', 'positive')
