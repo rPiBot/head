@@ -6,7 +6,7 @@ pygame.init()
 ss = ServoSix()
 
 screen = pygame.display.set_mode((1, 1)) #TODO Required?
-pygame.key.set_repeat(100, 100)
+pygame.key.set_repeat(100, 20)
 
 
 steps = { 'size': 10, 'delay': 0.05, 'range_min': 20, 'range_max': 160 }
