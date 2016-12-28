@@ -57,5 +57,7 @@ while True:
                 pan_tilt('y', 'negative')
             elif event.key == pygame.K_DOWN:
                 pan_tilt('y', 'positive')
+            elif event.key == pygame.K_r:
+                reset_camera()
 
 cleanup()
