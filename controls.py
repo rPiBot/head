@@ -12,8 +12,11 @@ steps = { 'size': 10, 'range_min': 20, 'range_max': 160 }
 cam = {'x': 90, 'y': 90}
 
 def reset_camera():
-    ss.set_servo(1, 90)
-    ss.set_servo(2, 90)
+    global cam
+    cam['x'] = 90
+    cam['y'] = 90
+    ss.set_servo(1, cam['x'])
+    ss.set_servo(2, cam['y'])
 
 def cleanup():
     reset_camera()
