@@ -24,21 +24,21 @@ def cleanup():
     pygame.quit()
     quit()
 
-def pan_tilt(type, direction):
+def pan_tilt(axis, direction, type):
     global cam, steps
 
-    if (cam[type] <= steps['range_min'] and direction == 'negative') or (cam[type] >= steps['range_max'] and direction == 'positive'):
+    if (cam[axis] <= steps['range_min'] and direction == 'negative') or (cam[axis] >= steps['range_max'] and direction == 'positive'):
         print 'Limit reached'
 
     else:
         if direction == 'positive':
-            cam[type] = cam[type] + steps['size']
+            cam[axis] = cam[axis] + steps['size']
         else:
-            cam[type] = cam[type] - steps['size']
+            cam[axis] = cam[axis] - steps['size']
 
-        servo = 1 if type == 'x' else 2
-        ss.set_servo(servo, cam[type])
-#        percent = (cam[type] / 180) * 100
+        servo = 1 if axis == 'x' else 2
+        ss.set_servo(servo, cam[axis])
+#        percent = (cam[axis] / 180) * 100
 #        os.system("echo {}={}% > /dev/servoblaster".format(servo, percent))
     return True
 
@@ -52,14 +52,15 @@ while True:
             break
 
         if event.type == pygame.KEYDOWN:
+            type = 'snap' if pygame.key.get_mods() & pygame.KMOD_SHIFT else 'step'
             if event.key == pygame.K_LEFT:
-                pan_tilt('x', 'positive')
+                pan_tilt('x', 'positive', type)
             elif event.key == pygame.K_RIGHT:
-                pan_tilt('x', 'negative')
+                pan_tilt('x', 'negative', type)
             elif event.key == pygame.K_UP:
-                pan_tilt('y', 'negative')
+                pan_tilt('y', 'negative', type)
             elif event.key == pygame.K_DOWN:
-                pan_tilt('y', 'positive')
+                pan_tilt('y', 'positive', type)
             elif event.key == pygame.K_r:
                 reset_camera()
 
