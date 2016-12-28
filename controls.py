@@ -32,9 +32,9 @@ def pan_tilt(axis, direction, type):
 
     else:
         if direction == 'positive':
-            cam[axis] = cam[axis] + steps['size']
+            cam[axis] = (cam[axis] + steps['size']) if type == 'step' else steps['range_max']
         else:
-            cam[axis] = cam[axis] - steps['size']
+            cam[axis] = cam[axis] - steps['size'] if type == 'step' else steps['range_min']
 
         servo = 1 if axis == 'x' else 2
         ss.set_servo(servo, cam[axis])
