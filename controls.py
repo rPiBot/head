@@ -66,14 +66,14 @@ def move(direction):
     state['body'] = direction
     if direction == 'forwards':
         GPIO.output(35, True)
-        GPIO.output(37, True)
-    elif direction == 'backwards':
         GPIO.output(36, True)
+    elif direction == 'backwards':
+        GPIO.output(37, True)
         GPIO.output(38, True)
     elif direction == 'left':
-        GPIO.output(36, True)
-    elif direction == 'right':
         GPIO.output(38, True)
+    elif direction == 'right':
+        GPIO.output(36, True)
 
     print direction
 
