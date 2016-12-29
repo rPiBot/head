@@ -8,7 +8,7 @@ screen = pygame.display.set_mode((1, 1)) #TODO Required?
 pygame.key.set_repeat(50, 50)
 
 ss = ServoSix()
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(35, GPIO.OUT)
 GPIO.setup(36, GPIO.OUT)
 GPIO.setup(37, GPIO.OUT)
@@ -55,6 +55,8 @@ def pan_tilt(axis, direction, type):
 
 def move(direction):
     global state
+
+    print direction
 
     GPIO.output(35, False)
     GPIO.output(36, False)
