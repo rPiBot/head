@@ -56,8 +56,6 @@ def pan_tilt(axis, direction, type):
 def move(direction):
     global state
 
-    print direction
-
     GPIO.output(35, False)
     GPIO.output(36, False)
     GPIO.output(37, False)
@@ -76,7 +74,6 @@ def move(direction):
     elif direction == 'right':
         GPIO.output(36, True)
         GPIO.output(37, True)
-
 
     print direction
 
