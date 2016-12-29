@@ -14,7 +14,7 @@ GPIO.setup(36, GPIO.OUT)
 GPIO.setup(37, GPIO.OUT)
 GPIO.setup(38, GPIO.OUT)
 
-cam = {'x': 90, 'y': 90}
+cam = {'x': 80, 'y': 60}
 state = {'cam': 'reset', 'body': 'reset'}
 
 def initialise():
@@ -30,7 +30,7 @@ def cleanup():
 def pan_tilt(axis, direction, type):
     global cam, state
 
-    defaults = { 'size': 10, 'range_min': 20, 'range_max': 160, 'x': 90, 'y': 90 }
+    defaults = { 'size': 10, 'range_min': 20, 'range_max': 160, 'x': 80, 'y': 60 }
 
     if (cam[axis] <= defaults['range_min'] and direction == 'negative') or (cam[axis] >= defaults['range_max'] and direction == 'positive'):
         return False
