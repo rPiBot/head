@@ -72,8 +72,11 @@ def move(direction):
         GPIO.output(38, True)
     elif direction == 'left':
         GPIO.output(38, True)
+        GPIO.output(35, True)
     elif direction == 'right':
         GPIO.output(36, True)
+        GPIO.output(37, True)
+
 
     print direction
 
