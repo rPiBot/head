@@ -10,6 +10,8 @@ class Camera:
         if self.state != 'reset':
             self.pan_tilt('x', 'reset', type)
             self.pan_tilt('y', 'reset', type)
+    def __exit__(self):
+        ss.cleanup()
 
     def pan_tilt(self, axis, direction, type):
         defaults = { 'size': 10, 'range_min': 20, 'range_max': 160, 'x': 80, 'y': 60 }
