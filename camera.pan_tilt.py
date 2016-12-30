@@ -6,7 +6,7 @@
 from modules.camera import Camera
 import sys
 
-if sys.argv[1] == 'reset':
+if sys.argv[2] == 'reset':
     camera = Camera('')
 else:
     camera = Camera('reset')
