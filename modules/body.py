@@ -11,27 +11,29 @@ class Body:
 
 
     def move(self, direction):
-        if direction != self.state:
-            GPIO.output(35, False)
-            GPIO.output(36, False)
-            GPIO.output(37, False)
-            GPIO.output(38, False)
+        try:
+            if direction != self.state:
+                GPIO.output(35, False)
+                GPIO.output(36, False)
+                GPIO.output(37, False)
+                GPIO.output(38, False)
 
-            self.state = direction
+                self.state = direction
 
-            if direction == 'forwards':
-                GPIO.output(35, True)
-                GPIO.output(36, True)
-            elif direction == 'backwards':
-                GPIO.output(37, True)
-                GPIO.output(38, True)
-            elif direction == 'left':
-                GPIO.output(38, True)
-                GPIO.output(35, True)
-            elif direction == 'right':
-                GPIO.output(36, True)
-                GPIO.output(37, True)
+                if direction == 'forwards':
+                    GPIO.output(35, True)
+                    GPIO.output(36, True)
+                elif direction == 'backwards':
+                    GPIO.output(37, True)
+                    GPIO.output(38, True)
+                elif direction == 'left':
+                    GPIO.output(38, True)
+                    GPIO.output(35, True)
+                elif direction == 'right':
+                    GPIO.output(36, True)
+                    GPIO.output(37, True)
 
-            print direction
+                print direction
 
-        GPIO.cleanup()
+        finally:
+            GPIO.cleanup()
