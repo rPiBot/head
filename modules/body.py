@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.cleanup()  # Cleanup any existing use
 GPIO.setup(35, GPIO.OUT)
 GPIO.setup(36, GPIO.OUT)
 GPIO.setup(37, GPIO.OUT)
