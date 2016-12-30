@@ -6,5 +6,8 @@
 from modules.camera import Camera
 import sys
 
-camera = Camera('reset')
-Camera.pan_tilt(camera, sys.argv[1], sys.argv[2], sys.argv[3])
+if sys.argv[1] == 'reset':
+    camera = Camera('')
+else:
+    camera = Camera('reset')
+    Camera.pan_tilt(camera, sys.argv[1], sys.argv[2], sys.argv[3])
