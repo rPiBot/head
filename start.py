@@ -5,6 +5,6 @@ from modules.body import Body
 
 keys = Keys()
 body = Body()
-camera = Camera()
+camera = Camera('')
 
 Keys.monitor_inputs(keys, body, camera)

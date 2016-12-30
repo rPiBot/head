@@ -41,7 +41,7 @@ class Keys:
                         variables = keys.get(event.key, 'NO KEY SET')
                         Camera.pan_tilt(camera, variables[0], variables[1], type)
                     elif event.key == pygame.K_r:
-                        Camera.__init__(camera)
+                        Camera.__init__(camera, '')
                     elif event.key in {pygame.K_w, pygame.K_a, pygame.K_s, pygame.K_d}:
                         variables = keys.get(event.key, 'NO KEY SET')
                         Body.move(body, variables[0])

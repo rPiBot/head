@@ -2,14 +2,16 @@ from servosix import ServoSix
 
 ss = ServoSix()
 
-class Camera:
+class Camera():
     cam = {'x': 80, 'y': 60}
     state = ''
 
-    def __init__(self):
-        if self.state != 'reset':
+    def __init__(self, initial_state):
+        if initial_state != 'reset':
             self.pan_tilt('x', 'reset', type)
             self.pan_tilt('y', 'reset', type)
+            self.state = 'reset'
+
     def __exit__(self):
         ss.cleanup()
 
