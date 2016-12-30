@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(35, GPIO.OUT)
 GPIO.setup(36, GPIO.OUT)
 GPIO.setup(37, GPIO.OUT)
@@ -8,6 +8,7 @@ GPIO.setup(38, GPIO.OUT)
 
 class Body:
     state = ''
+
 
     def move(self, direction):
         if direction != self.state:
@@ -33,4 +34,4 @@ class Body:
 
             print direction
 
-GPIO.cleanup()
+        GPIO.cleanup()
