@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(35, GPIO.OUT)
 GPIO.setup(36, GPIO.OUT)
 GPIO.setup(37, GPIO.OUT)
@@ -33,4 +33,4 @@ class Body:
 
             print direction
 
-GPIO.cleanup() 
+GPIO.cleanup()
