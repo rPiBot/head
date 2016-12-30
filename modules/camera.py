@@ -28,6 +28,8 @@ class Camera():
                 self.cam[axis] = self.cam[axis] - defaults['size'] if type == 'step' else defaults['range_min']
             elif direction == 'reset':
                 self.cam[axis] = defaults[axis]
+            else:
+                self.cam[axis] = type
 
             self.state = direction
 
