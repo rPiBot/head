@@ -32,3 +32,5 @@ class Body:
                 GPIO.output(37, True)
 
             print direction
+
+GPIO.cleanup() 
