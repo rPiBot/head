@@ -29,7 +29,7 @@ class Camera():
             elif direction == 'reset':
                 self.cam[axis] = defaults[axis]
             else:
-                self.cam[axis] = direction
+                self.cam[axis] = float(direction)
 
             self.state = direction
 
