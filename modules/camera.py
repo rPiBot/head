@@ -8,8 +8,8 @@ class Camera():
 
     def __init__(self, initial_state):
         if initial_state != 'reset':
-            self.pan_tilt('x', 'reset', type)
-            self.pan_tilt('y', 'reset', type)
+            self.pan_tilt('x', 'reset', 0)
+            self.pan_tilt('y', 'reset', 0)
             self.state = 'reset'
 
     def __exit__(self):

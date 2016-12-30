@@ -1,13 +1,10 @@
 # Calls the Camera.pan_tilt method directly.  Requires three arguments:
-# sys.argv[1]       axis        (x or y)
-# sys.argv[2]       direction   (positive or negative)
-# sys.argv[3]       type        (step or snap)
+# sys.argv[1]       x position      (0 [right] - 180 [left])
+# sys.argv[2]       y position      (0 [top]   - 180 [bottom])
 
 from modules.camera import Camera
 import sys
 
-if sys.argv[2] == 'reset':
-    camera = Camera('')
-else:
-    camera = Camera('reset')
-    Camera.pan_tilt(camera, sys.argv[1], sys.argv[2], sys.argv[3])
+camera = Camera('reset')
+Camera.pan_tilt(camera, 'x', sys.argv[1], 0)
+Camera.pan_tilt(camera, 'y', sys.argv[2], 0)
