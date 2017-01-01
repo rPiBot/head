@@ -44,7 +44,7 @@ class Body:
             print 'checking distance'
 
             if direction == 'forwards':
-                while self.check_distance() > 20:
+                while self.check_distance() > 20: # AND state == forwards FROM CONFIG FILE
                   GPIO.output(35, True)
                   GPIO.output(36, True)
                 else:
