@@ -28,11 +28,7 @@ class Body:
             end = time.time()
 
         duration = end - start
-        distance = round((duration * 17150), 2)
-
-        print "Distance:",distance,"cm"
-        if distance > 10:
-            print 'OK to continue'
+        return round((duration * 17150), 2)
 
     def move(self, direction):
         if direction != self.state:
@@ -48,7 +44,7 @@ class Body:
             print 'checking distance'
 
             if direction == 'forwards':
-                if self.check_distance():
+                if self.check_distance() > 10:
                   GPIO.output(35, True)
                   GPIO.output(36, True)
                 else:
