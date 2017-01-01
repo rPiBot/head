@@ -43,7 +43,7 @@ class Body:
             self.state = direction
 
             print 'checking distance'
-            self.check_distance
+            self.check_distance()
 
             if direction == 'forwards':
                 GPIO.output(35, True)
