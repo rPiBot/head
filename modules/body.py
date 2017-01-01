@@ -22,14 +22,17 @@ class Body:
         GPIO.output(TRIG, False)
 
         while GPIO.input(ECHO) == 0:
-          start = time.time()
+            start = time.time()
 
         while GPIO.input(ECHO) == 1:
-          end = time.time()
+            end = time.time()
 
         duration = end - start
         distance = round((duration * 17150), 2)
+
         print "Distance:",distance,"cm"
+        if distance > 10:
+            print 'OK to continue'
 
     def move(self, direction):
         if direction != self.state:
