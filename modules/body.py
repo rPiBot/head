@@ -43,7 +43,7 @@ class Body:
             self.state = direction
 
             if direction == 'forwards':
-                check_distance(self)
+                self.check_distance
                 GPIO.output(35, True)
                 GPIO.output(36, True)
             elif direction == 'backwards':
