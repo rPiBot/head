@@ -49,6 +49,8 @@ class Body:
                   GPIO.output(36, True)
                 else:
                   print 'Not safe to continue'
+                  GPIO.output(35, False)
+                  GPIO.output(36, False)
             elif direction == 'backwards':
                 GPIO.output(37, True)
                 GPIO.output(38, True)
