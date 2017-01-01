@@ -7,19 +7,21 @@ GPIO.setup(36, GPIO.OUT)
 GPIO.setup(37, GPIO.OUT)
 GPIO.setup(38, GPIO.OUT)
 
-TRIG = 33
+TRIG_FRONT = 33
+TRIG_REAR = 32
 ECHO = 31
-GPIO.setup(TRIG,GPIO.OUT)
+GPIO.setup(TRIG_FRONT,GPIO.OUT)
+GPIO.setup(TRIG_REAR,GPIO.OUT)
 GPIO.setup(ECHO,GPIO.IN)
 
 class Body:
     state = ''
 
-    def check_distance(self):
+    def check_distance(self, sensor):
         time.sleep(0.005) # Wait for sensor to be ready
-        GPIO.output(TRIG, True)
+        GPIO.output(sensor, True)
         time.sleep(0.00001)
-        GPIO.output(TRIG, False)
+        GPIO.output(sensor, False)
 
         while GPIO.input(ECHO) == 0:
             start = time.time()
@@ -37,23 +39,29 @@ class Body:
             GPIO.output(37, False)
             GPIO.output(38, False)
 
-            GPIO.output(TRIG, False)
+            GPIO.output(TRIG_FRONT, False)
+            GPIO.output(TRIG_REAR, False)
 
             self.state = direction
 
             print 'checking distance'
 
             if direction == 'forwards':
-                while self.check_distance() > 20: # AND state == forwards FROM CONFIG FILE
+                while self.check_distance(TRIG_FRONT) > 20: # AND state == forwards FROM CONFIG FILE
                   GPIO.output(35, True)
                   GPIO.output(36, True)
                 else:
-                  print 'Not safe to continue'
+                  print 'Not safe to drive forwards'
                   GPIO.output(35, False)
                   GPIO.output(36, False)
             elif direction == 'backwards':
-                GPIO.output(37, True)
-                GPIO.output(38, True)
+                while self.check_distance(TRIG_REAR) > 20: # AND state == backwards FROM CONFIG FILE
+                    GPIO.output(37, True)
+                    GPIO.output(38, True)
+                else:
+                    print 'Not safe to drive backwards'
+                    GPIO.output(37, False)
+                    GPIO.output(38, False)
             elif direction == 'left':
                 GPIO.output(38, True)
                 GPIO.output(35, True)
