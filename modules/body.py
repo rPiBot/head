@@ -16,7 +16,7 @@ class Body:
     state = ''
 
     def check_distance(self):
-        sleep(0.005) # Wait for sensor to be ready
+        time.sleep(0.005) # Wait for sensor to be ready
         GPIO.output(TRIG, True)
         time.sleep(0.00001)
         GPIO.output(TRIG, False)
