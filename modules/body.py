@@ -51,20 +51,20 @@ class Body:
 
             if direction == 'forwards':
                 while self.check_distance(TRIG_FRONT, ECHO_FRONT) > 20: # AND state == forwards FROM CONFIG FILE
-                  GPIO.output(35, True)
-                  GPIO.output(36, True)
+                  GPIO.output(37, True)
+                  GPIO.output(38, True)
                 else:
                   print 'Not safe to drive forwards'
-                  GPIO.output(35, False)
-                  GPIO.output(36, False)
+                  GPIO.output(37, False)
+                  GPIO.output(38, False)
             elif direction == 'backwards':
                 while self.check_distance(TRIG_REAR, ECHO_REAR) > 20: # AND state == backwards FROM CONFIG FILE
-                    GPIO.output(37, True)
-                    GPIO.output(38, True)
+                    GPIO.output(35, True)
+                    GPIO.output(36, True)
                 else:
                     print 'Not safe to drive backwards'
-                    GPIO.output(37, False)
-                    GPIO.output(38, False)
+                    GPIO.output(35, False)
+                    GPIO.output(36, False)
             elif direction == 'right':
                 GPIO.output(38, True)
                 GPIO.output(35, True)
