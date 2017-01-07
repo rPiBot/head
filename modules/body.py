@@ -8,25 +8,28 @@ GPIO.setup(37, GPIO.OUT)
 GPIO.setup(38, GPIO.OUT)
 
 TRIG_FRONT = 33
-TRIG_REAR = 32
-ECHO = 31
+TRIG_REAR = 31
+ECHO_FRONT = 40
+ECHO_REAR = 32
+
 GPIO.setup(TRIG_FRONT,GPIO.OUT)
 GPIO.setup(TRIG_REAR,GPIO.OUT)
-GPIO.setup(ECHO,GPIO.IN)
+GPIO.setup(ECHO_FRONT,GPIO.IN)
+GPIO.setup(ECHO_REAR,GPIO.IN)
 
 class Body:
     state = ''
 
-    def check_distance(self, sensor):
+    def check_distance(self, trigger, echo):
         time.sleep(0.005) # Wait for sensor to be ready
-        GPIO.output(sensor, True)
+        GPIO.output(trigger, True)
         time.sleep(0.00001)
-        GPIO.output(sensor, False)
+        GPIO.output(trigger, False)
 
-        while GPIO.input(ECHO) == 0:
+        while GPIO.input(echo) == 0:
             start = time.time()
 
-        while GPIO.input(ECHO) == 1:
+        while GPIO.input(echo) == 1:
             end = time.time()
 
         duration = end - start
@@ -47,7 +50,7 @@ class Body:
             print 'checking distance'
 
             if direction == 'forwards':
-                while self.check_distance(TRIG_FRONT) > 20: # AND state == forwards FROM CONFIG FILE
+                while self.check_distance(TRIG_FRONT, ECHO_FRONT) > 20: # AND state == forwards FROM CONFIG FILE
                   GPIO.output(35, True)
                   GPIO.output(36, True)
                 else:
@@ -55,17 +58,17 @@ class Body:
                   GPIO.output(35, False)
                   GPIO.output(36, False)
             elif direction == 'backwards':
-                while self.check_distance(TRIG_REAR) > 20: # AND state == backwards FROM CONFIG FILE
+                while self.check_distance(TRIG_REAR, ECHO_REAR) > 20: # AND state == backwards FROM CONFIG FILE
                     GPIO.output(37, True)
                     GPIO.output(38, True)
                 else:
                     print 'Not safe to drive backwards'
                     GPIO.output(37, False)
                     GPIO.output(38, False)
-            elif direction == 'left':
+            elif direction == 'right':
                 GPIO.output(38, True)
                 GPIO.output(35, True)
-            elif direction == 'right':
+            elif direction == 'left':
                 GPIO.output(36, True)
                 GPIO.output(37, True)
 
